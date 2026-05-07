@@ -1,0 +1,19 @@
+[project]
+name = "rag-pgvector"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "azure-identity>=1.25.3",
+    "langchain>=1.2.15",
+    "langchain-text-splitters>=1.1.2",
+    "openai>=2.33.0",
+    "pandas>=3.0.2",
+    "pdfplumber>=0.11.9",
+    "psycopg2-binary>=2.9.12",
+    "pypdf>=6.10.2",
+    "python-dotenv>=1.2.2",
+    "pytz>=2026.1.post1",
+    "ragas>=0.4.3",
+]
