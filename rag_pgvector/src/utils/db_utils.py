@@ -3,7 +3,7 @@ import pandas as pd
 from psycopg2.extensions import connection
 from psycopg2.extras import execute_values
 from pydantic import BaseModel, field_validator
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 
 from dotenv import load_dotenv
 
@@ -38,7 +38,7 @@ def db_connection(user: str, password: str, host: str, dbname: str = "postgres",
     return conn
 
 
-def query_db(query: str) -> pd.DataFrame:
+def query_db(query: str, params: Optional[tuple[Any, ...]] = None) -> pd.DataFrame:
     """Execute a SQL query using psycopg2 and return the results as a DataFrame."""
     import os
     conn = db_connection(
@@ -49,7 +49,7 @@ def query_db(query: str) -> pd.DataFrame:
         port=int(os.getenv("PG_PORT", 5432))
     )
     with conn.cursor() as cur:
-        cur.execute(query)
+        cur.execute(query, params)
         rows = cur.fetchall()
         columns = [desc[0] for desc in cur.description]
     df = pd.DataFrame(rows, columns=columns)

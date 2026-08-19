@@ -1,0 +1,4 @@
+[[index]]
+name = "microsoft"
+url = "https://packagefeedproxy.microsoft.io/pypi/simple/"
+default = true

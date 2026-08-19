@@ -14,7 +14,25 @@ EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
 API_VERSION = os.getenv("EMBEDDING_API_VERSION")
 
 
-def generate_embeddings(token_provider, texts: list[str], page: Optional[int], dimensions: int = 786) -> list[dict]:
+def generate_embedding(token_provider, text: str, dimensions: int = 786) -> list[float]:
+    """Generate and return an embedding vector for a single string."""
+    if not text.strip():
+        raise ValueError("text must not be empty")
+
+    client = AzureOpenAI(
+        api_version=API_VERSION,
+        azure_endpoint=ENDPOINT,
+        azure_ad_token_provider=token_provider,
+    )
+    response = client.embeddings.create(
+        input=text,
+        model=EMBEDDING_MODEL,
+        dimensions=dimensions,
+    )
+    return response.data[0].embedding
+
+
+def generate_batch_embeddings(token_provider, texts: list[str], page: Optional[int], dimensions: int = 786) -> list[dict]:
     client = AzureOpenAI(
         api_version=API_VERSION,
         azure_endpoint=ENDPOINT,
