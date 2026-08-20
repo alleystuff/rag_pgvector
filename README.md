@@ -152,7 +152,7 @@ Pandas DataFrame.
 computes normalized cosine similarity:
 
 $$
-\operatorname{cosine}(a,b) =
+\cos(a,b) =
 \frac{a}{\lVert a \rVert_2} \cdot
 \frac{b}{\lVert b \rVert_2}
 $$
